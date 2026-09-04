@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+/* ========== 深色主题（默认） ========== */
+:root {
+  --accent: #e89a4b;
+  --accent-light: #f0b06e;
+  --accent-deep: #c97e35;
+  --accent-soft: rgba(232, 154, 75, 0.15);
+  --accent-glow: rgba(232, 154, 75, 0.35);
+
+  --bg-base: #0a0a0c;
+  --bg-elevated: #121216;
+  --bg-card: rgba(255, 255, 255, 0.035);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+
+  --text-primary: #f2f3f7;
+  --text-secondary: #b4b6c0;
+  --text-tertiary: #7a7d8a;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(232, 154, 75, 0.35);
+
+  --glow-bg-accent: rgba(232, 154, 75, 0.6);
+  --glow-bg-deep: rgba(201, 126, 53, 0.4);
+  --accent-sweep: rgba(232, 154, 75, 0.12);
+  --stripe-rgba: 232, 154, 75;
+  --stripe-edge-fade: rgba(10, 10, 12, 0.55);
+  --nav-blur-bg: rgba(10, 10, 12, 0.8);
+}
+
+/* ========== 浅色主题 ========== */
+html[data-theme="light"] {
+  --accent: #d48a3a;
+  --accent-light: #e8a24f;
+  --accent-deep: #b8722c;
+  --accent-soft: rgba(212, 138, 58, 0.12);
+  --accent-glow: rgba(212, 138, 58, 0.28);
+
+  --bg-base: #faf8f5;
+  --bg-elevated: #f2efe9;
+  --bg-card: rgba(212, 138, 58, 0.04);
+  --bg-card-hover: rgba(212, 138, 58, 0.08);
+
+  --text-primary: #1a1816;
+  --text-secondary: #5c5a57;
+  --text-tertiary: #9a9792;
+
+  --border-subtle: rgba(26, 24, 22, 0.1);
+  --border-accent: rgba(212, 138, 58, 0.4);
+
+  --glow-bg-accent: rgba(212, 138, 58, 0.4);
+  --glow-bg-deep: rgba(184, 114, 44, 0.25);
+  --accent-sweep: rgba(212, 138, 58, 0.14);
+  --stripe-rgba: 212, 138, 58;
+  --stripe-edge-fade: rgba(250, 248, 245, 0.6);
+  --nav-blur-bg: rgba(250, 248, 245, 0.85);
+}
+
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-glow: var(--accent-glow);
+  --color-bg-base: var(--bg-base);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-accent: var(--border-accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-base);
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+  /* 主题切换过渡 */
+  transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ========== 通用样式 ========== */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(var(--accent-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--accent-soft) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.glow-accent {
+  box-shadow: 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+}
+
+.text-glow { text-shadow: 0 0 30px var(--accent-glow); }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-light), var(--accent), var(--accent-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-gold {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+.card-gold:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 20px var(--accent-glow);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px var(--accent-glow);
+}
+.btn-primary:active { transform: translateY(0); }
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.btn-primary:hover::after { transform: translateX(100%); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--border-accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float { animation: float-slow 6s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-line {
+  background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ========== 主题切换圆形遮罩动画 ========== */
+.theme-reveal {
+  position: fixed;
+  border-radius: 9999px;
+  background: var(--bg-base);
+  pointer-events: none;
+  z-index: 9999;
+  transform: scale(0);
+  animation: theme-expand 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes theme-expand {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(1); opacity: 0; }
+}
+
+/* 主题切换期间隐藏滚动条 —— Windows Chrome 滚动条不支持 CSS transition，
+   所以直接"藏"起来，切换完以新主题色重新出现 */
+html.theme-switching {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge Legacy */
+}
+html.theme-switching::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* 浅色主题下 card hover 阴影调整 */
+html[data-theme="light"] .card-gold:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), 0 0 20px var(--accent-glow);
+}
