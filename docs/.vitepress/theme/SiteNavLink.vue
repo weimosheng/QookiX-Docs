@@ -1,6 +1,6 @@
 <template>
   <div class="qx-navlink">
-    <a class="qx-navlink-item" href="/">
+    <a class="qx-navlink-item qx-navlink-ghost" href="/" target="_self" rel="noopener">
       <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
         <path
           fill="currentColor"
@@ -9,7 +9,7 @@
       </svg>
       返回主站
     </a>
-    <a class="qx-navlink-item qx-navlink-cta" href="/download">下载</a>
+    <a class="qx-navlink-item qx-navlink-cta" href="/download" target="_self" rel="noopener">下载</a>
   </div>
 </template>
 
@@ -18,9 +18,15 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-left: 8px;
-  margin-left: 4px;
-  border-left: 1px solid var(--vp-c-divider);
+}
+
+.qx-navlink::before {
+  content: "";
+  width: 1px;
+  height: 24px;
+  margin-right: 8px;
+  margin-left: 24px;
+  background-color: var(--vp-c-divider);
 }
 
 .qx-navlink-item {
@@ -36,6 +42,17 @@
 
 .qx-navlink-item:hover {
   color: var(--vp-c-brand-1);
+}
+
+.qx-navlink-ghost {
+  padding: 5px 14px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.qx-navlink-ghost:hover {
+  border-color: var(--vp-c-brand-1);
 }
 
 .qx-navlink-cta {
@@ -56,10 +73,8 @@
 }
 
 @media (max-width: 767px) {
-  .qx-navlink {
-    padding-left: 0;
-    margin-left: 0;
-    border-left: none;
+  .qx-navlink::before {
+    display: none;
   }
 }
 </style>

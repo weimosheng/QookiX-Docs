@@ -7,7 +7,7 @@ outline: deep
 
 ## 获取安装包
 
-前往主站的[下载页面](https://github.com/weimosheng/QookiX-Launcher/releases)，页面会自动识别并推荐你当前系统的安装包；也可以手动切换到其他平台。
+前往主站的<a href="/download" target="_self">下载页面</a>，页面会自动识别并推荐你当前系统的安装包；也可以手动切换到其他平台。若页面加载失败，可直接前往 <a href="https://github.com/weimosheng/QookiX-Launcher/releases" target="_blank" rel="noopener">GitHub Releases</a> 获取。
 
 国内用户默认走国内镜像下载，速度更快；若镜像不可用，页面会自动回退到 GitHub 源。
 
@@ -23,7 +23,7 @@ outline: deep
 
 ## Windows
 
-1. 下载 `.exe`（或 `.msi`）安装包。
+1. 下载 `.exe`安装包。
 2. 双击运行，按向导提示完成安装。
 3. 若出现 SmartScreen 提示，点击「更多信息」→「仍要运行」。
 4. 安装完成后从桌面快捷方式或开始菜单启动。
@@ -77,7 +77,7 @@ sudo dnf install webkit2gtk4.1 openssl-libs
 
 ## 升级
 
-启动器会在检测到新版本时提示更新，按提示确认即可。你也可以随时回到下载页手动获取最新版。
+启动器会在检测到新版本时提示更新，按提示确认即可。你也可以随时回到设置界面手动检查更新以获取最新版。
 
 覆盖安装不会删除你的实例、模组与存档——这些数据保存在独立的游戏目录中。
 
