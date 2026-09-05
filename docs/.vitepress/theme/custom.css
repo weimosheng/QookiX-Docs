@@ -1,0 +1,134 @@
+/* ==========================================================
+   QookiX 主题 —— 与主站（Next.js）配色保持一致
+   主站深色：bg #0a0a0c / 强调色 #e89a4b
+   主站浅色：bg #faf8f5 / 强调色 #d48a3a
+   ========================================================== */
+
+/* ---------- 浅色（默认） ---------- */
+html:not(.dark) {
+  --vp-c-brand-1: #d48a3a;
+  --vp-c-brand-2: #c07a2c;
+  --vp-c-brand-3: #b8722c;
+  --vp-c-brand-soft: rgba(212, 138, 58, 0.12);
+
+  --vp-c-bg: #faf8f5;
+  --vp-c-bg-alt: #f2efe9;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: #f4f1ea;
+
+  --vp-c-text-1: #1a1816;
+  --vp-c-text-2: #5c5a57;
+  --vp-c-text-3: #9a9792;
+
+  --vp-c-border: rgba(26, 24, 22, 0.1);
+  --vp-c-divider: rgba(26, 24, 22, 0.1);
+  --vp-c-gutter: rgba(26, 24, 22, 0.08);
+
+  --vp-c-default-1: #5c5a57;
+  --vp-c-default-2: #7a766f;
+  --vp-c-default-3: #9a9792;
+  --vp-c-default-soft: rgba(26, 24, 22, 0.05);
+
+  --vp-code-block-bg: #f4f1ea;
+
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #e8a24f 0%,
+    #d48a3a 55%,
+    #b8722c 100%
+  );
+}
+
+/* ---------- 深色 ---------- */
+html.dark {
+  --vp-c-brand-1: #f0b06e;
+  --vp-c-brand-2: #e89a4b;
+  --vp-c-brand-3: #c97e35;
+  --vp-c-brand-soft: rgba(232, 154, 75, 0.16);
+
+  --vp-c-bg: #0a0a0c;
+  --vp-c-bg-alt: #0e0e12;
+  --vp-c-bg-elv: #15151b;
+  --vp-c-bg-soft: #121217;
+
+  --vp-c-text-1: #f2f3f7;
+  --vp-c-text-2: #b4b6c0;
+  --vp-c-text-3: #7a7d8a;
+
+  --vp-c-border: rgba(255, 255, 255, 0.08);
+  --vp-c-divider: rgba(255, 255, 255, 0.08);
+  --vp-c-gutter: rgba(255, 255, 255, 0.06);
+
+  --vp-c-default-1: #b4b6c0;
+  --vp-c-default-2: #7a7d8a;
+  --vp-c-default-3: #5a5d68;
+  --vp-c-default-soft: rgba(255, 255, 255, 0.05);
+
+  --vp-code-block-bg: #101015;
+
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #fee3c0 0%,
+    #f0b06e 55%,
+    #e89a4b 100%
+  );
+}
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-font-family-base: "Inter var experimental", "Inter var", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", sans-serif;
+  --vp-font-family-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas",
+    monospace;
+}
+
+/* ---------- 滚动条 ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand-soft);
+}
+
+/* ---------- 选中 ---------- */
+::selection {
+  background: var(--vp-c-brand-2);
+  color: var(--vp-c-bg);
+}
+
+/* ---------- 首页 Hero ---------- */
+.VPHero .name {
+  line-height: 1.15;
+}
+.VPHero .text {
+  line-height: 1.2;
+}
+
+/* ---------- 卡片 / 提示块 ---------- */
+.vp-doc .custom-block {
+  border-radius: 12px;
+}
+
+.vp-doc table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ---------- 侧边栏当前项 ---------- */
+.vp-sidebar-link-item.active > .link > .text {
+  color: var(--vp-c-brand-1);
+}
+
+/* ---------- 平滑主题切换 ---------- */
+.VPSwitchAppearance {
+  transition: background-color 0.2s;
+}

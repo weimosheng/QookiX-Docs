@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // VitePress 文档站（Vue + 独立构建，不走 Next 的 lint 规则）
+    "docs/**",
   ]),
 ]);
 

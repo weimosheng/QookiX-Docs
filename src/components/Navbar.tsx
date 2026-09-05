@@ -8,9 +8,11 @@ import { Menu, X, Download } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 import ThemeToggle from "./ThemeToggle";
 
-const navItems = [
+// external: 指向 VitePress 文档站（独立应用，不能用 next/link 做客户端路由）
+const navItems: { href: string; label: string; external?: boolean }[] = [
   { href: "/", label: "首页" },
   { href: "/download", label: "下载" },
+  { href: "/docs/", label: "文档", external: true },
 ];
 
 export default function Navbar() {
@@ -52,17 +54,18 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <nav className="hidden md:flex col-start-2 row-start-1 justify-self-center items-center gap-1">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? "text-accent"
-                    : "text-text-secondary hover:text-text-primary"
-                }`}
-              >
+            const isActive = !item.external && pathname === item.href;
+            const cls = `relative px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              isActive
+                ? "text-accent"
+                : "text-text-secondary hover:text-text-primary"
+            }`;
+            return item.external ? (
+              <a key={item.href} href={item.href} className={cls}>
+                {item.label}
+              </a>
+            ) : (
+              <Link key={item.href} href={item.href} className={cls}>
                 {item.label}
                 {isActive && (
                   <motion.div
@@ -118,17 +121,27 @@ export default function Navbar() {
           >
             <div className="px-6 py-4 flex flex-col gap-2">
               {navItems.map((item) => {
-                const isActive = pathname === item.href;
-                return (
+                const isActive = !item.external && pathname === item.href;
+                const cls = `px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? "text-accent bg-accent-soft"
+                    : "text-text-secondary hover:text-text-primary hover:bg-bg-card"
+                }`;
+                return item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={cls}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                      isActive
-                        ? "text-accent bg-accent-soft"
-                        : "text-text-secondary hover:text-text-primary hover:bg-bg-card"
-                    }`}
+                    className={cls}
                   >
                     {item.label}
                   </Link>

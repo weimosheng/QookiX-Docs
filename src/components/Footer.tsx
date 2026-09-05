@@ -47,6 +47,14 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <a
+                  href="/docs/"
+                  className="text-sm text-text-secondary hover:text-accent transition-colors"
+                >
+                  使用文档
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://github.com/weimosheng/QookiX-Launcher/releases"
                   target="_blank"
                   rel="noopener noreferrer"
