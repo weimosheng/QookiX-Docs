@@ -14,7 +14,7 @@ hero:
       link: /guide/
     - theme: alt
       text: 查看源码
-      link: https://github.com/weimosheng/QookiX-Launcher
+      link: https://github.com/weimosheng/QookiX-Docs
 features:
   - icon: 🚀
     title: 几分钟上手
