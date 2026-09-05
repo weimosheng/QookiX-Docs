@@ -132,3 +132,29 @@ html.dark {
 .VPSwitchAppearance {
   transition: background-color 0.2s;
 }
+
+/* ---------- 移动端 hamburger 菜单：把「主站」入口排到文档导航（常见问题）之后 ----------
+   VPNavScreen 模板顺序固定为 menu → translations → appearance → social-links → 插槽，
+   插槽内容只能在最后。这里把 .container 改为 flex column + order，让主站入口视觉上
+   紧接 menu，appearance / social-links 沉到最底，避免链接与开关混杂。 */
+@media (max-width: 767px) {
+  .VPNavScreen .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .VPNavScreen .container > .menu {
+    order: 1;
+  }
+  .VPNavScreen .container > .qx-screen-link {
+    order: 2;
+  }
+  .VPNavScreen .container > .translations {
+    order: 3;
+  }
+  .VPNavScreen .container > .appearance {
+    order: 4;
+  }
+  .VPNavScreen .container > .social-links {
+    order: 5;
+  }
+}

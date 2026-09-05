@@ -1,14 +1,6 @@
 <template>
   <div class="qx-navlink">
-    <a class="qx-navlink-item qx-navlink-ghost" href="/" target="_self" rel="noopener">
-      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-        <path
-          fill="currentColor"
-          d="M10 20v-6h4v6h5v-9h4l-9-8-9 8h4v9z"
-        />
-      </svg>
-      返回主站
-    </a>
+    <a class="qx-navlink-item qx-navlink-ghost" href="/" target="_self" rel="noopener">返回主站</a>
     <a class="qx-navlink-item qx-navlink-cta" href="/download" target="_self" rel="noopener">下载</a>
   </div>
 </template>
@@ -73,7 +65,7 @@
 }
 
 @media (max-width: 767px) {
-  .qx-navlink::before {
+  .qx-navlink {
     display: none;
   }
 }
