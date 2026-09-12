@@ -2,27 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-
-const screenshots = [
-  {
-    src: "/screenshot-home.png",
-    alt: "QookiX Launcher 首页",
-    title: "首页",
-    desc: "一眼看全你的所有游戏实例，一键启动。",
-  },
-  {
-    src: "/screenshot-content.png",
-    alt: "QookiX Launcher 内容中心",
-    title: "内容中心",
-    desc: "Modrinth + CurseForge 双内容中心，模组整合包随便装。",
-  },
-  {
-    src: "/screenshot-skin.png",
-    alt: "QookiX Launcher 皮肤中心",
-    title: "皮肤中心",
-    desc: "3D 皮肤预览，上传、切换、一键应用。",
-  },
-];
+import { useI18n } from "./I18nProvider";
 
 const containerVariants = {
   hidden: {},
@@ -43,7 +23,14 @@ const itemVariants = {
   },
 };
 
+const sources = [
+  "/screenshot-home.png",
+  "/screenshot-content.png",
+  "/screenshot-skin.png",
+];
+
 export default function Screenshots() {
+  const { t } = useI18n();
   return (
     <section className="relative py-28 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -56,14 +43,14 @@ export default function Screenshots() {
           className="text-center mb-16"
         >
           <span className="text-xs font-medium text-accent tracking-[0.2em] uppercase mb-4 block">
-            界面预览
+            {t.screenshots.eyebrow}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary">
-            沉浸体验 —{" "}
-            <span className="gradient-text">干净利落</span>
+            {t.screenshots.title}{" "}
+            <span className="gradient-text">{t.screenshots.titleHighlight}</span>
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto mt-5 leading-relaxed">
-            深色主题 + 暖琥珀色点缀，左侧导航 + 主内容区，所有操作触手可及。
+            {t.screenshots.subtitle}
           </p>
         </motion.div>
 
@@ -76,8 +63,7 @@ export default function Screenshots() {
           className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8"
           style={{ perspective: "1200px" }}
         >
-          {screenshots.map((shot, i) => {
-            // 中间那张稍微放大
+          {t.screenshots.items.map((shot, i) => {
             const scale = i === 1 ? "scale-105" : "scale-100";
             return (
               <motion.div
@@ -94,7 +80,7 @@ export default function Screenshots() {
                   {/* 截图 */}
                   <div className="relative rounded-lg overflow-hidden bg-bg-base">
                     <Image
-                      src={shot.src}
+                      src={sources[i]}
                       alt={shot.alt}
                       width={1280}
                       height={720}

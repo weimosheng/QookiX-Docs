@@ -79,7 +79,7 @@ export function parseDownloads(assets: GithubAsset[]): PlatformDownload[] {
       platform: "windows",
       arch: "x64",
       label: "Windows",
-      format: "安装版 (exe)",
+      format: "exeSetup",
       asset: findAsset(["x64-setup.exe"]),
     },
     {
@@ -87,7 +87,7 @@ export function parseDownloads(assets: GithubAsset[]): PlatformDownload[] {
       platform: "windows",
       arch: "x64",
       label: "Windows",
-      format: "便携版 (zip)",
+      format: "zipPortable",
       asset: findAsset(["x64_portable.zip"]),
     },
     // macOS
@@ -96,7 +96,7 @@ export function parseDownloads(assets: GithubAsset[]): PlatformDownload[] {
       platform: "macos",
       arch: "arm64",
       label: "macOS (Apple Silicon)",
-      format: "安装版 (dmg)",
+      format: "dmgSetup",
       asset: findAsset(["aarch64.dmg"]),
     },
     {
@@ -104,7 +104,7 @@ export function parseDownloads(assets: GithubAsset[]): PlatformDownload[] {
       platform: "macos",
       arch: "x64",
       label: "macOS (Intel)",
-      format: "tar.gz",
+      format: "tarGz",
       asset: findAsset(["app.tar.gz"]),
     },
     // Linux
@@ -113,7 +113,7 @@ export function parseDownloads(assets: GithubAsset[]): PlatformDownload[] {
       platform: "linux",
       arch: "x64",
       label: "Linux",
-      format: "AppImage",
+      format: "appImage",
       asset: findAsset(["amd64.AppImage"]),
     },
     {
@@ -121,7 +121,7 @@ export function parseDownloads(assets: GithubAsset[]): PlatformDownload[] {
       platform: "linux",
       arch: "x64",
       label: "Linux (Debian/Ubuntu)",
-      format: "DEB",
+      format: "deb",
       asset: findAsset(["amd64.deb"]),
     },
     {
@@ -129,7 +129,7 @@ export function parseDownloads(assets: GithubAsset[]): PlatformDownload[] {
       platform: "linux",
       arch: "x64",
       label: "Linux (Fedora/RHEL)",
-      format: "RPM",
+      format: "rpm",
       asset: findAsset(["x86_64.rpm"]),
     },
   ];
@@ -143,9 +143,12 @@ export function formatFileSize(bytes: number): string {
   return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
 }
 
-export function formatDate(dateStr: string): string {
+export function formatDate(
+  dateStr: string,
+  locale: "zh" | "en" = "zh"
+): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("zh-CN", {
+  return date.toLocaleDateString(locale === "zh" ? "zh-CN" : "en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",

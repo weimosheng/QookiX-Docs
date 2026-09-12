@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { I18nProvider } from "@/components/I18nProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,14 +38,16 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-bg-base" suppressHydrationWarning>
         <ThemeProvider>
-          {/* 固定导航 */}
-          <Navbar />
+          <I18nProvider>
+            {/* 固定导航 */}
+            <Navbar />
 
-          {/* 主内容区 */}
-          <main className="flex-1 relative z-10">{children}</main>
+            {/* 主内容区 */}
+            <main className="flex-1 relative z-10">{children}</main>
 
-          {/* 页脚 */}
-          <Footer />
+            {/* 页脚 */}
+            <Footer />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

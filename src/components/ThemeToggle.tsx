@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
+import { useI18n } from "./I18nProvider";
 
 /**
  * 主题切换按钮 — 圆形，点击后从按钮中心展开遮罩过渡
  */
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useI18n();
   const isDark = theme === "dark";
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,7 +20,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={handleClick}
-      aria-label={isDark ? "切换到浅色主题" : "切换到深色主题"}
+      aria-label={isDark ? t.themeToggle.toLight : t.themeToggle.toDark}
       className="relative w-9 h-9 rounded-lg flex items-center justify-center
                  text-text-secondary hover:text-accent hover:bg-bg-card
                  border border-transparent hover:border-border-subtle

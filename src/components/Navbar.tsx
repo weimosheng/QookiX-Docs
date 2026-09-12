@@ -7,16 +7,18 @@ import { useState, useEffect } from "react";
 import { Menu, X, Download } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 import ThemeToggle from "./ThemeToggle";
+import LangToggle from "./LangToggle";
+import { useI18n } from "./I18nProvider";
 
-// external: 指向 VitePress 文档站（独立应用，不能用 next/link 做客户端路由）
-const navItems: { href: string; label: string; external?: boolean }[] = [
-  { href: "/", label: "首页" },
-  { href: "/download", label: "下载" },
-  { href: "/docs/", label: "文档", external: true },
+const navKeys = [
+  { href: "/", key: "home" as const },
+  { href: "/download", key: "download" as const },
+  { href: "/docs/", key: "docs" as const, external: true },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { t } = useI18n();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -53,8 +55,9 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex col-start-2 row-start-1 justify-self-center items-center gap-1">
-          {navItems.map((item) => {
+          {navKeys.map((item) => {
             const isActive = !item.external && pathname === item.href;
+            const label = t.nav[item.key];
             const cls = `relative px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               isActive
                 ? "text-accent"
@@ -62,11 +65,11 @@ export default function Navbar() {
             }`;
             return item.external ? (
               <a key={item.href} href={item.href} className={cls}>
-                {item.label}
+                {label}
               </a>
             ) : (
               <Link key={item.href} href={item.href} className={cls}>
-                {item.label}
+                {label}
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
@@ -81,6 +84,7 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className="hidden md:flex col-start-3 row-start-1 justify-self-end items-center gap-2">
+          <LangToggle />
           <ThemeToggle />
           <a
             href="https://github.com/weimosheng/QookiX-Launcher"
@@ -89,14 +93,14 @@ export default function Navbar() {
             className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors"
           >
             <GithubIcon size={18} />
-            <span>GitHub</span>
+            <span>{t.nav.github}</span>
           </a>
           <Link
             href="/download"
             className="btn-primary !py-2.5 !px-5 !text-sm"
           >
             <Download size={16} />
-            下载
+            {t.nav.download}
           </Link>
         </div>
 
@@ -120,8 +124,9 @@ export default function Navbar() {
             className="md:hidden border-t border-border-subtle bg-bg-base/95 backdrop-blur-xl overflow-hidden"
           >
             <div className="px-6 py-4 flex flex-col gap-2">
-              {navItems.map((item) => {
+              {navKeys.map((item) => {
                 const isActive = !item.external && pathname === item.href;
+                const label = t.nav[item.key];
                 const cls = `px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                   isActive
                     ? "text-accent bg-accent-soft"
@@ -134,7 +139,7 @@ export default function Navbar() {
                     onClick={() => setMobileOpen(false)}
                     className={cls}
                   >
-                    {item.label}
+                    {label}
                   </a>
                 ) : (
                   <Link
@@ -143,10 +148,14 @@ export default function Navbar() {
                     onClick={() => setMobileOpen(false)}
                     className={cls}
                   >
-                    {item.label}
+                    {label}
                   </Link>
                 );
               })}
+              <div className="flex items-center gap-2 px-4 py-3">
+                <LangToggle />
+                <ThemeToggle />
+              </div>
               <a
                 href="https://github.com/weimosheng/QookiX-Launcher"
                 target="_blank"
@@ -154,7 +163,7 @@ export default function Navbar() {
                 className="flex items-center gap-2 px-4 py-3 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors"
               >
                 <GithubIcon size={18} />
-                GitHub
+                {t.nav.github}
               </a>
               <Link
                 href="/download"
@@ -162,7 +171,7 @@ export default function Navbar() {
                 className="btn-primary w-full mt-2"
               >
                 <Download size={16} />
-                立即下载
+                {t.nav.downloadNow}
               </Link>
             </div>
           </motion.div>

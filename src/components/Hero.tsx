@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Download, ChevronDown } from "lucide-react";
+import { useI18n } from "./I18nProvider";
 
 export default function Hero() {
+  const { t } = useI18n();
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 网格背景 */}
@@ -76,9 +78,9 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
           className="text-lg sm:text-xl text-text-secondary mx-auto leading-relaxed mb-10"
         >
-          QookiX Launcher — 一款免费、开源、无广告的跨平台 Minecraft Java 版启动器
+          {t.hero.tagline1}
           <br className="hidden sm:block" />
-          支持 安装和更新 Modrinth 与 CurseForge 的模组、整合包、光影、资源包
+          {t.hero.tagline2}
         </motion.p>
 
         {/* CTA 按钮 */}
@@ -90,7 +92,7 @@ export default function Hero() {
         >
           <Link href="/download" className="btn-primary text-base !px-8 !py-3.5 animate-float">
             <Download size={18} />
-            立即下载
+            {t.hero.download}
           </Link>
           <a
             href="https://github.com/weimosheng/QookiX-Launcher"
@@ -98,7 +100,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="btn-secondary text-base !px-8 !py-3.5"
           >
-            查看源码
+            {t.hero.viewSource}
           </a>
         </motion.div>
 

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "./I18nProvider";
 
 interface StatProps {
   value: number;
@@ -35,7 +36,6 @@ function AnimatedStat({ value, suffix = "", label, duration = 1.8 }: StatProps) 
   useEffect(() => {
     if (!started) return;
 
-    let start = 0;
     const startTime = performance.now();
 
     const tick = (now: number) => {
@@ -47,8 +47,6 @@ function AnimatedStat({ value, suffix = "", label, duration = 1.8 }: StatProps) 
 
       if (progress < 1) {
         requestAnimationFrame(tick);
-      } else {
-        start = value;
       }
     };
 
@@ -66,7 +64,15 @@ function AnimatedStat({ value, suffix = "", label, duration = 1.8 }: StatProps) 
   );
 }
 
+const statValues = [
+  { value: 99, suffix: "%" },
+  { value: 82, suffix: ".76%" },
+  { value: 76, suffix: "%" },
+  { value: 60, suffix: "%" },
+];
+
 export default function Stats() {
+  const { t } = useI18n();
   return (
     <section className="relative py-28 px-6">
       <div className="max-w-5xl mx-auto">
@@ -82,11 +88,10 @@ export default function Stats() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-            极致的优化
+            {t.stats.title}
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto leading-relaxed">
-            QookiX Launcher 始终与时俱进，借助最新的技术精心打造多任务调度和分片下载/断点续传功能，
-            最大程度保证你的浏览和安装体验。
+            {t.stats.desc}
           </p>
         </motion.div>
 
@@ -98,10 +103,14 @@ export default function Stats() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12"
         >
-          <AnimatedStat value={99} suffix="%" label="修复 Bug 响应率" />
-          <AnimatedStat value={82} suffix=".76%" label="更新频率" />
-          <AnimatedStat value={76} suffix="%" label="功能开发进度" />
-          <AnimatedStat value={60} suffix="%" label="反馈响应率" />
+          {statValues.map((s, i) => (
+            <AnimatedStat
+              key={i}
+              value={s.value}
+              suffix={s.suffix}
+              label={t.stats.labels[i]}
+            />
+          ))}
         </motion.div>
 
         {/* 底部金色分割线 */}

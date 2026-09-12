@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import GithubIcon from "@/components/GithubIcon";
 import StripesBackground from "@/components/StripesBackground";
+import { useI18n } from "@/components/I18nProvider";
 import {
   parseDownloads,
   formatFileSize,
@@ -46,7 +47,6 @@ interface ApiRelease {
   published_at: string;
   html_url: string;
   prerelease: boolean;
-  formatted_date: string;
   downloads: ApiDownload[];
 }
 
@@ -59,12 +59,11 @@ const platformMeta: Record<
   linux: { label: "Linux", icon: Terminal, order: 2 },
 };
 
-// 国内镜像站：优先直连其 release.json（不经 Worker/Cloudflare），失败回退 /api/releases（Worker 代理 GitHub）。
-// 拿到镜像数据后把下载链接改写为镜像站文件 URL（镜像站文件用空格名 QookiX Launcher）。
 const MIRROR_BASE = "https://qookix.cn-nb1.rains3.com";
 const MIRROR_RELEASE_JSON = `${MIRROR_BASE}/release.json`;
 
 export default function DownloadPage() {
+  const { t, locale } = useI18n();
   const [release, setRelease] = useState<ApiRelease | null>(null);
   const [downloads, setDownloads] = useState<ApiDownload[]>([]);
   const [activePlatform, setActivePlatform] = useState<Platform>("windows");
@@ -75,8 +74,6 @@ export default function DownloadPage() {
     const controller = new AbortController();
     const { signal } = controller;
 
-    // 优先直连国内镜像 release.json（不经 Worker/Cloudflare）；
-    // 失败回退 /api/releases（Worker 代理 GitHub）
     fetch(MIRROR_RELEASE_JSON, { cache: "no-store", signal })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -86,8 +83,6 @@ export default function DownloadPage() {
         if (!raw || !Array.isArray(raw.assets) || !raw.tag_name) {
           throw new Error("invalid mirror release json");
         }
-        // 改写下载链接指向镜像站：镜像站文件用空格名 "QookiX Launcher"，
-        // 而 GitHub asset 名是点名 "QookiX.Launcher"，需替换以免 404
         return {
           ...raw,
           assets: raw.assets.map((a) => ({
@@ -129,7 +124,6 @@ export default function DownloadPage() {
           published_at: raw.published_at,
           html_url: raw.html_url,
           prerelease: raw.prerelease,
-          formatted_date: formatDate(raw.published_at),
           downloads,
         };
         setRelease(data);
@@ -151,8 +145,12 @@ export default function DownloadPage() {
     (d) => d.platform === activePlatform && d.asset
   );
 
-  // 获取当前激活平台的首个可用下载
   const primaryDownload = platformDownloads[0]?.asset;
+
+  const formatLabel = (key: string): string => {
+    const formats = t.download.formats;
+    return (formats as Record<string, string>)[key] ?? key;
+  };
 
   return (
     <>
@@ -183,10 +181,10 @@ export default function DownloadPage() {
           className="text-center mb-12"
         >
           <span className="text-xs font-medium text-accent tracking-[0.2em] uppercase mb-4 block">
-            获取
+            {t.download.eyebrow}
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary mb-4">
-            下载{" "}
+            {t.download.titlePrefix}{" "}
             <span className="gradient-text">QookiX Launcher</span>
           </h1>
           {release && (
@@ -195,7 +193,7 @@ export default function DownloadPage() {
                 {release.tag_name}
               </span>
               <span className="mx-2">·</span>
-              发布于 {release.formatted_date}
+              {t.download.publishedOn} {formatDate(release.published_at, locale)}
             </p>
           )}
         </motion.div>
@@ -203,7 +201,7 @@ export default function DownloadPage() {
         {loading && (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
             <Loader2 size={32} className="text-accent animate-spin" />
-            <p className="text-text-secondary text-sm">正在获取最新版本信息...</p>
+            <p className="text-text-secondary text-sm">{t.download.loading}</p>
           </div>
         )}
 
@@ -214,10 +212,10 @@ export default function DownloadPage() {
               className="text-accent mx-auto mb-4"
             />
             <h3 className="text-lg font-semibold text-text-primary mb-2">
-              暂时无法获取下载信息
+              {t.download.errorTitle}
             </h3>
             <p className="text-text-secondary text-sm mb-6">
-              请直接前往 GitHub Releases 页面下载最新版本。
+              {t.download.errorDesc}
             </p>
             <a
               href="https://github.com/weimosheng/QookiX-Launcher/releases"
@@ -287,7 +285,7 @@ export default function DownloadPage() {
                     className="btn-primary !px-12 !py-5 text-base"
                   >
                     <Download size={22} />
-                    下载 {platformMeta[activePlatform].label} ({primaryDownload.size_label})
+                    {t.download.downloadButton} {platformMeta[activePlatform].label} ({primaryDownload.size_label})
                   </a>
                 </div>
                 <p className="text-text-tertiary text-xs mt-3 text-center">
@@ -305,7 +303,7 @@ export default function DownloadPage() {
                 className="mb-12"
               >
                 <h3 className="text-center text-xs font-medium text-text-tertiary tracking-wider uppercase mb-5">
-                  其他下载格式
+                  {t.download.otherFormats}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
                   {platformDownloads.map((d) => (
@@ -320,7 +318,7 @@ export default function DownloadPage() {
                         </div>
                         <div>
                           <div className="text-sm font-medium text-text-primary">
-                            {d.format}
+                            {formatLabel(d.format)}
                           </div>
                           <div className="text-xs text-text-tertiary">
                             {d.asset!.size_label}
@@ -351,7 +349,7 @@ export default function DownloadPage() {
                 className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
               >
                 <GithubIcon size={16} />
-                查看完整 Release Notes
+                {t.download.viewReleaseNotes}
                 <ExternalLink size={14} />
               </a>
             </motion.div>

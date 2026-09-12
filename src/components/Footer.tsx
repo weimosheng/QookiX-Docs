@@ -1,7 +1,11 @@
+"use client";
+
 import { Heart } from "lucide-react";
 import GithubIcon from "./GithubIcon";
+import { useI18n } from "./I18nProvider";
 
 export default function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="relative border-t border-border-subtle bg-bg-elevated/50">
       {/* 金色流光装饰 */}
@@ -26,8 +30,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-text-secondary text-sm max-w-md leading-relaxed">
-              一款免费、纯净、无广告的 Minecraft 启动器。
-              支持 Modrinth / CurseForge 双内容中心，模组、整合包、光影、资源包一键安装与升级。
+              {t.footer.desc}
             </p>
             <div className="flex items-center gap-3 mt-5">
               <a
@@ -43,14 +46,14 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-semibold text-text-primary text-sm mb-4">相关链接</h4>
+            <h4 className="font-semibold text-text-primary text-sm mb-4">{t.footer.linksTitle}</h4>
             <ul className="space-y-2.5">
               <li>
                 <a
                   href="/docs/"
                   className="text-sm text-text-secondary hover:text-accent transition-colors"
                 >
-                  使用文档
+                  {t.footer.docs}
                 </a>
               </li>
               <li>
@@ -70,7 +73,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-text-secondary hover:text-accent transition-colors"
                 >
-                  反馈问题
+                  {t.footer.feedback}
                 </a>
               </li>
               <li>
@@ -99,7 +102,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-text-tertiary">
-            © {new Date().getFullYear()} QookiX Launcher. Licensed under GPL-3.0.
+            © {new Date().getFullYear()} {t.footer.copyright}
           </p>
           <p className="text-xs text-text-tertiary flex items-center gap-1.5">
             Made with <Heart size={12} className="text-accent fill-accent" /> by weimosheng
@@ -109,7 +112,7 @@ export default function Footer() {
         {/* 非官方免责声明 */}
         <div className="mt-6 text-center">
           <p className="text-[11px] text-text-tertiary/80 leading-relaxed">
-            非 Minecraft 官方服务。未经 Mojang 或 Microsoft 批准，亦与其无关联。
+            {t.footer.disclaimer}
           </p>
         </div>
       </div>

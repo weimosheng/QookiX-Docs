@@ -2,29 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Download, MousePointer2, CheckCircle } from "lucide-react";
+import { useI18n } from "./I18nProvider";
 
-const steps = [
-  {
-    icon: Download,
-    step: "01",
-    title: "下载安装",
-    desc: "从官网下载对应平台的安装包，一键安装到你的电脑。",
-  },
-  {
-    icon: MousePointer2,
-    step: "02",
-    title: "选择内容",
-    desc: "浏览 Modrinth 或 CurseForge，挑你喜欢的模组、整合包、光影。",
-  },
-  {
-    icon: CheckCircle,
-    step: "03",
-    title: "开玩！",
-    desc: "多线程自动下载安装，配置完成后一键启动游戏。",
-  },
-];
+const stepIcons = [Download, MousePointer2, CheckCircle];
 
 export default function Showcase() {
+  const { t } = useI18n();
   return (
     <section className="relative py-28 px-6 overflow-hidden">
       {/* 背景光晕 */}
@@ -49,41 +32,46 @@ export default function Showcase() {
           className="text-center mb-16"
         >
           <span className="text-xs font-medium text-accent tracking-[0.2em] uppercase mb-4 block">
-            强大的功能
+            {t.showcase.eyebrow}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary">
-            不仅仅是一个启动器
+            {t.showcase.title}
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto mt-5 leading-relaxed">
-            提供大量实用强大的功能，一站式管理你的所有游戏资源。
+            {t.showcase.subtitle}
           </p>
         </motion.div>
 
         {/* 三步骤流程 */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-          {steps.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
-              className="relative card-gold p-8"
-            >
-              <div className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-gradient-to-br from-accent-light to-accent flex items-center justify-center shadow-lg shadow-accent-glow/40">
-                <span className="text-bg-base font-bold text-sm">{s.step}</span>
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-accent-soft border border-border-accent flex items-center justify-center mb-6">
-                <s.icon size={26} className="text-accent" strokeWidth={1.8} />
-              </div>
-              <h3 className="text-xl font-semibold text-text-primary mb-3">
-                {s.title}
-              </h3>
-              <p className="text-text-secondary text-sm leading-relaxed">
-                {s.desc}
-              </p>
-            </motion.div>
-          ))}
+          {t.showcase.steps.map((s, i) => {
+            const Icon = stepIcons[i] ?? Download;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
+                className="relative card-gold p-8"
+              >
+                <div className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-gradient-to-br from-accent-light to-accent flex items-center justify-center shadow-lg shadow-accent-glow/40">
+                  <span className="text-bg-base font-bold text-sm">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="w-14 h-14 rounded-2xl bg-accent-soft border border-border-accent flex items-center justify-center mb-6">
+                  <Icon size={26} className="text-accent" strokeWidth={1.8} />
+                </div>
+                <h3 className="text-xl font-semibold text-text-primary mb-3">
+                  {s.title}
+                </h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  {s.desc}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* 功能亮点横向展示 */}
@@ -97,21 +85,16 @@ export default function Showcase() {
             className="card-gold p-8 lg:p-10"
           >
             <span className="text-xs font-medium text-accent tracking-wider uppercase mb-3 block">
-              极简外观 暗藏玄机
+              {t.showcase.showcase1.eyebrow}
             </span>
             <h3 className="text-2xl font-bold text-text-primary mb-4">
-              即便放在桌面也是件艺术品
+              {t.showcase.showcase1.title}
             </h3>
             <p className="text-text-secondary text-sm leading-relaxed mb-6">
-              基于 Tauri 2 打造，体积轻巧，启动极速。界面遵循现代设计语言，
-              深色主题配合暖琥珀色点缀，沉稳而不沉闷。
+              {t.showcase.showcase1.desc}
             </p>
             <ul className="space-y-2.5">
-              {[
-                "Tauri 2 内核，原生性能",
-                "Vue 3 + Naive UI 现代化界面",
-                "暖琥珀色主题，沉浸体验",
-              ].map((item, idx) => (
+              {t.showcase.showcase1.list.map((item, idx) => (
                 <li key={idx} className="flex items-center gap-2.5 text-sm text-text-secondary">
                   <CheckCircle size={16} className="text-accent shrink-0" />
                   {item}
@@ -129,25 +112,27 @@ export default function Showcase() {
             className="card-gold p-8 lg:p-10"
           >
             <span className="text-xs font-medium text-accent tracking-wider uppercase mb-3 block">
-              与第三方资源集成
+              {t.showcase.showcase2.eyebrow}
             </span>
             <h3 className="text-2xl font-bold text-text-primary mb-4">
-              主流内容平台一键接入
+              {t.showcase.showcase2.title}
             </h3>
             <p className="text-text-secondary text-sm leading-relaxed mb-6">
-              与 CurseForge、Modrinth 等第三方资源站点深度集成，
-              为你提供最新的模组包、资源包、插件等资源。
+              {t.showcase.showcase2.desc}
             </p>
             <div className="flex gap-3 flex-wrap">
-              <div className="px-4 py-2 rounded-lg bg-accent-soft border border-border-accent text-sm text-accent font-medium">
-                Modrinth
-              </div>
-              <div className="px-4 py-2 rounded-lg bg-accent-soft border border-border-accent text-sm text-accent font-medium">
-                CurseForge
-              </div>
-              <div className="px-4 py-2 rounded-lg bg-bg-card border border-border-subtle text-sm text-text-secondary">
-                陶瓦联机
-              </div>
+              {t.showcase.showcase2.tags.map((tag, idx) => (
+                <div
+                  key={idx}
+                  className={
+                    idx < 2
+                      ? "px-4 py-2 rounded-lg bg-accent-soft border border-border-accent text-sm text-accent font-medium"
+                      : "px-4 py-2 rounded-lg bg-bg-card border border-border-subtle text-sm text-text-secondary"
+                  }
+                >
+                  {tag}
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
