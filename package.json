@@ -10,6 +10,7 @@
     "build": "next build && vitepress build docs",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --test",
     "preview:worker": "npm run build && wrangler dev",
     "deploy:worker": "npm run build && wrangler deploy"
   },
