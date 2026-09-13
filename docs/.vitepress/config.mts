@@ -2,6 +2,9 @@ import { defineConfig } from "vitepress";
 
 const GITHUB = "https://github.com/weimosheng/QookiX-Docs";
 
+/** 主站（官网）地址，文档站从这里跳回去。 */
+const MAIN_SITE = "https://www.qookix.cn";
+
 /**
  * 「在 GitHub 上编辑此页」的跳转模板。
  * 结构：<仓库>/edit/<分支>/<文档目录>/<文件相对路径>
@@ -19,10 +22,10 @@ const EDIT_LINK = `${GITHUB}/edit/main/docs/:path`;
 const SYNC_THEME = `(function(){try{var t=localStorage.getItem('qookix-theme');if(t==='dark'||t==='light'){document.documentElement.classList.toggle('dark',t==='dark');localStorage.setItem('vitepress-theme-appearance',t);}}catch(e){}})();`;
 
 export default defineConfig({
-  // 文档挂在站点 /docs/ 下，构建产物直接写入 next build 的 out/ 目录，
-  // 由同一个 Cloudflare Worker（wrangler [assets]）一并提供，无需额外部署。
-  base: "/docs/",
-  outDir: "../out/docs",
+  // 文档站独立部署在 docs.qookix.cn 的根路径下，不再是主站的 /docs 子路径。
+  // 产物输出到 docs/.vitepress/dist，由 Vercel 上的文档项目单独发布。
+  base: "/",
+  outDir: ".vitepress/dist",
 
   lang: "zh-CN",
   title: "QookiX Launcher 文档",
@@ -32,15 +35,13 @@ export default defineConfig({
   lastUpdated: true,
 
   vite: {
-    // outDir 位于项目根之外，交给 next build 管理，这里不要清空
-    build: { emptyOutDir: false },
     // Windows 下若当前工作目录的盘符大小写与 VitePress 内部路径不一致，
     // 渲染阶段 realpath 归一化后匹配不到页面 chunk 会报错，这里跳过 realpath
     resolve: { preserveSymlinks: true },
   },
 
   head: [
-    ["link", { rel: "icon", type: "image/png", href: "/docs/qookix-icon.png" }],
+    ["link", { rel: "icon", type: "image/png", href: "/qookix-icon.png" }],
     ["meta", { name: "theme-color", content: "#0a0a0c" }],
     ["script", {}, SYNC_THEME],
   ],
@@ -52,6 +53,7 @@ export default defineConfig({
     nav: [
       { text: "指南", link: "/guide/", activeMatch: "/guide/" },
       { text: "常见问题", link: "/guide/faq", activeMatch: "/guide/faq" },
+      { text: "主站", link: MAIN_SITE },
     ],
 
     sidebar: [

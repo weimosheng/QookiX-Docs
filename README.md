@@ -6,7 +6,7 @@
 
 **一款免费、纯净、无广告的 Minecraft 启动器**
 
-[[官方网站]](https://qookix.swkj1.cn) | [[文档中心]](https://qookix.swkj1.cn/docs) | [[软件仓库]](https://github.com/weimosheng/QookiX-Launcher)
+[[官方网站]](https://www.qookix.cn) | [[文档中心]](https://docs.qookix.cn) | [[软件仓库]](https://github.com/weimosheng/QookiX-Launcher)
 
 | 仓库 | 内容 | 适合反馈什么 |
 |---|---|---|
@@ -34,12 +34,23 @@
 ```bash
 npm install
 npm run dev        # 主站 http://localhost:3000
-npm run docs:dev   # 文档 http://localhost:5173/docs/
+npm run docs:dev   # 文档站 http://localhost:5173/
 ```
 
 ## 部署
 
-推送到 `main` 分支后由 Cloudflare 自动构建部署，不需要手动操作。Pull Request 会生成预览地址，合并后约 1 分钟上线。
+官网与文档站是两个独立站点，各自在 Vercel 建一个项目，都指向本仓库 `weimosheng/QookiX-Docs`，并分别绑定子域名：
+
+| 站点 | 域名 | Framework Preset | Build Command | Output Directory |
+|---|---|---|---|---|
+| 官网 | `www.qookix.cn` | Next.js | `npm run build` | `out` |
+| 文档站 | `docs.qookix.cn` | Other | `npm run docs:build` | `docs/.vitepress/dist` |
+
+两个项目都随 `main` 分支自动构建部署。
+
+因为域名不同，跨站跳转必须用绝对地址：主站侧统一从 `src/lib/site.ts` 取 `DOCS_URL`，文档站侧在 `docs/.vitepress/config.mts` 里用 `MAIN_SITE`。不要写 `/docs/`、`/download` 这类同站相对路径，否则会指到错误的站点上去。
+
+> 注：`wrangler.toml` / `worker/` 那套 Cloudflare 部署只发布 `out/`，即官网。文档站已不再打进 `out/docs/`，如仍要保留 Cloudflare 通道，需另行为文档站单独配置部署。
 
 ## 许可
 

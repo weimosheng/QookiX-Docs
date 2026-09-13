@@ -3,6 +3,7 @@
 import { Heart } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 import { useI18n } from "./I18nProvider";
+import { DOCS_URL } from "@/lib/site";
 
 export default function Footer() {
   const { t } = useI18n();
@@ -50,7 +51,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <a
-                  href="/docs/"
+                  href={DOCS_URL}
                   className="text-sm text-text-secondary hover:text-accent transition-colors"
                 >
                   {t.footer.docs}

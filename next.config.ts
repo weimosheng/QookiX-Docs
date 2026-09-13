@@ -1,11 +1,8 @@
 import type { NextConfig } from "next";
 
-const pagesBasePath = process.env.PAGES_BASE_PATH || "";
-
+// 主站独立部署在 www.qookix.cn 的根路径下，不再使用任何仓库子路径前缀。
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: pagesBasePath,
-  assetPrefix: pagesBasePath,
   images: { unoptimized: true },
 };
 

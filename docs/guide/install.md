@@ -7,7 +7,7 @@ outline: deep
 
 ## 获取安装包
 
-前往主站的<a href="/download" target="_self">下载页面</a>，页面会自动识别并推荐你当前系统的安装包；也可以手动切换到其他平台。若页面加载失败，可直接前往 <a href="https://github.com/weimosheng/QookiX-Launcher/releases" target="_blank" rel="noopener">GitHub Releases</a> 获取。
+前往主站的<a href="https://www.qookix.cn/download" target="_self">下载页面</a>，页面会自动识别并推荐你当前系统的安装包；也可以手动切换到其他平台。若页面加载失败，可直接前往 <a href="https://github.com/weimosheng/QookiX-Launcher/releases" target="_blank" rel="noopener">GitHub Releases</a> 获取。
 
 国内用户默认走国内镜像下载，速度更快；若镜像不可用，页面会自动回退到 GitHub 源。
 

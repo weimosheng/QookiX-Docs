@@ -9,11 +9,12 @@ import GithubIcon from "./GithubIcon";
 import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
 import { useI18n } from "./I18nProvider";
+import { DOCS_URL } from "@/lib/site";
 
 const navKeys = [
   { href: "/", key: "home" as const },
   { href: "/download", key: "download" as const },
-  { href: "/docs/", key: "docs" as const, external: true },
+  { href: DOCS_URL, key: "docs" as const, external: true },
 ];
 
 export default function Navbar() {
