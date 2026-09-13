@@ -95,7 +95,14 @@ export default function DownloadPage() {
         };
       })
       .catch(() =>
-        fetch("/api/releases", { cache: "no-store", signal }).then((r) => {
+        fetch(
+          "https://api.github.com/repos/weimosheng/QookiX-Launcher/releases/latest",
+          {
+            cache: "no-store",
+            signal,
+            headers: { Accept: "application/vnd.github+json" },
+          }
+        ).then((r) => {
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           return r.json();
         })

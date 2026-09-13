@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import CharRainBackground from "./CharRainBackground";
 import { useI18n } from "./I18nProvider";
+
+const MotionLink = motion(Link);
 
 export default function CtaSection() {
   const { t } = useI18n();
@@ -28,7 +31,7 @@ export default function CtaSection() {
         >
           {t.cta.desc}
         </motion.p>
-        <motion.a
+        <MotionLink
           href="/download"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +40,7 @@ export default function CtaSection() {
           className="btn-primary text-base !px-10 !py-4"
         >
           {t.cta.button}
-        </motion.a>
+        </MotionLink>
       </div>
     </section>
   );
