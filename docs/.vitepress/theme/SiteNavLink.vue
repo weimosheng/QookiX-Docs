@@ -1,7 +1,7 @@
 <template>
   <div class="qx-navlink">
-    <a class="qx-navlink-item qx-navlink-ghost" href="/" target="_self" rel="noopener">返回主站</a>
-    <a class="qx-navlink-item qx-navlink-cta" href="/download" target="_self" rel="noopener">下载</a>
+    <a class="qx-navlink-item qx-navlink-ghost" href="https://www.qookix.cn/" target="_self" rel="noopener">返回主站</a>
+    <a class="qx-navlink-item qx-navlink-cta" href="https://www.qookix.cn/download" target="_self" rel="noopener">下载</a>
   </div>
 </template>
 

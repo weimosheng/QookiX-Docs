@@ -1,7 +1,7 @@
 <template>
   <div class="qx-screen-link">
-    <a class="qx-screen-link-item" href="/" target="_self" rel="noopener">返回主站</a>
-    <a class="qx-screen-link-item" href="/download" target="_self" rel="noopener">下载</a>
+    <a class="qx-screen-link-item" href="https://www.qookix.cn/" target="_self" rel="noopener">返回主站</a>
+    <a class="qx-screen-link-item" href="https://www.qookix.cn/download" target="_self" rel="noopener">下载</a>
   </div>
 </template>
 
