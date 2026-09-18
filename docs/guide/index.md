@@ -3,9 +3,9 @@ title: 快速开始
 outline: deep
 ---
 
-# 快速开始
+# QookiX Launcher 是什么？
 
-QookiX Launcher 是一款**免费、纯净、无广告**的 跨平台 Minecraft Java 启动器。它自带 Modrinth 与 CurseForge 双内容中心，支持多实例管理、皮肤中心和第三方联机，覆盖 Windows、macOS 与 Linux。
+QookiX Launcher 是一款**免费、纯净、无广告**的 跨平台 Minecraft Java 启动器，支持 Modrinth 与 CurseForge 资源搜索、皮肤中心和第三方联机，覆盖 Windows、macOS 与 Linux，以后会尝试适配 Android
 
 ## 系统要求
 
@@ -17,7 +17,7 @@ QookiX Launcher 是一款**免费、纯净、无广告**的 跨平台 Minecraft 
 | 网络 | 需要联网下载游戏与依赖 |
 
 ::: tip 关于 Java
-启动器内置 Java 自动检测：既会识别系统里已装好的 Java，也会在版本不匹配时自动为你下载对应版本。
+无需提前安装 Java，QookiX Launcher 会自动检测并下载适合版本的 Java
 :::
 
 ## 接着看什么

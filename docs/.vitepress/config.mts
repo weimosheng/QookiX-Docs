@@ -53,6 +53,7 @@ export default defineConfig({
     nav: [
       { text: "指南", link: "/guide/", activeMatch: "/guide/" },
       { text: "常见问题", link: "/guide/faq", activeMatch: "/guide/faq" },
+      { text: "服务状态", link: "/status", activeMatch: "/status" },
       { text: "主站", link: MAIN_SITE },
     ],
 
@@ -79,6 +80,7 @@ export default defineConfig({
         items: [
           { text: "设置与调优", link: "/guide/settings" },
           { text: "常见问题", link: "/guide/faq" },
+          { text: "服务状态", link: "/status" },
         ],
       },
     ],

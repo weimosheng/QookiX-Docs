@@ -7,9 +7,9 @@ outline: deep
 
 ## 获取安装包
 
-前往主站的<a href="https://www.qookix.cn/download" target="_self">下载页面</a>，页面会自动识别并推荐你当前系统的安装包；也可以手动切换到其他平台。若页面加载失败，可直接前往 <a href="https://github.com/weimosheng/QookiX-Launcher/releases" target="_blank" rel="noopener">GitHub Releases</a> 获取。
+前往主站的<a href="https://www.qookix.cn/download" target="_self">下载页面</a>，页面会自动识别并推荐你当前系统的安装包；也可以手动切换到其他平台。若页面加载失败，可直接前往 <a href="https://github.com/weimosheng/QookiX-Launcher/releases" target="_blank" rel="noopener">GitHub Releases</a> 获取
 
-国内用户默认走国内镜像下载，速度更快；若镜像不可用，页面会自动回退到 GitHub 源。
+国内访问将默认使用镜像源，如镜像源不可用，页面会自动回退到 GitHub 源
 
 ### 各平台提供的格式
 
@@ -29,7 +29,7 @@ outline: deep
 4. 安装完成后从桌面快捷方式或开始菜单启动。
 
 ::: details 为什么杀毒软件会报毒？
-启动器由 Tauri 打包，且未购买代码签名证书，部分杀软会按「未知发布者」规则误报。项目完全开源，你可以自行从源码构建，或把安装目录加入杀软白名单。
+启动器由 Tauri 打包，且未购买代码签名证书，部分杀软会按「未知发布者」规则误报。项目完全开源，你可以自行从源码构建使用，如您信任我们的项目，也可以把安装目录加入杀软白名单。
 :::
 
 ## macOS

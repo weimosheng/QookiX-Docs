@@ -1,13 +1,20 @@
 import { defineComponent, h, watch } from "vue";
 import DefaultTheme from "vitepress/theme";
 import { useData } from "vitepress";
+import type { EnhanceAppContext } from "vitepress";
 import HomeCta from "./HomeCta.vue";
 import SiteNavLink from "./SiteNavLink.vue";
 import SiteScreenLink from "./SiteScreenLink.vue";
+import TranslationStatus from "./TranslationStatus.vue";
 import "./custom.css";
 
 export default {
   extends: DefaultTheme,
+
+  // 状态页组件：docs/status.md 里直接写 <TranslationStatus /> 即可
+  enhanceApp({ app }: EnhanceAppContext) {
+    app.component("TranslationStatus", TranslationStatus);
+  },
 
   Layout: defineComponent({
     name: "QookiXLayout",
