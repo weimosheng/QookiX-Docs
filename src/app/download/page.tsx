@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import GithubIcon from "@/components/GithubIcon";
 import StripesBackground from "@/components/StripesBackground";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { useI18n } from "@/components/I18nProvider";
 import {
   parseDownloads,
@@ -180,6 +181,14 @@ export default function DownloadPage() {
         />
 
       <div className="relative z-10 w-full max-w-4xl">
+        {/* 面包屑（与结构化数据中的 BreadcrumbList 对应） */}
+        <Breadcrumbs
+          items={[
+            { label: t.nav.home, href: "/" },
+            { label: t.nav.download },
+          ]}
+        />
+
         {/* 标题区 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
