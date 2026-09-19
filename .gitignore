@@ -47,3 +47,5 @@ next-env.d.ts
 # vitepress (docs)
 docs/.vitepress/cache
 docs/.vitepress/dist
+
+.codegraph

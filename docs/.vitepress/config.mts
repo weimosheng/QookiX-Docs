@@ -83,6 +83,10 @@ export default defineConfig({
           { text: "服务状态", link: "/status" },
         ],
       },
+      {
+        text: "条款与政策",
+        items: [{ text: "用户协议", link: "/agreement" }],
+      },
     ],
 
     outline: { level: [2, 3], label: "本页目录" },
@@ -90,7 +94,7 @@ export default defineConfig({
     socialLinks: [{ icon: "github", link: GITHUB }],
 
     footer: {
-      message: "基于 GPL-3.0 协议开源发布",
+      message: '基于 GPL-3.0 协议开源发布 · <a href="/agreement">用户协议</a>',
       copyright: "Copyright © 2026 QookiX Launcher",
     },
 
