@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import { Menu, X, Download } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Download, Menu, X } from "lucide-react";
 import GithubIcon from "./GithubIcon";
-import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
 import { useI18n } from "./I18nProvider";
-import { DOCS_URL } from "@/lib/site";
+import { DOCS_URL, GITHUB_REPO_URL } from "@/lib/site";
+import { DUR, EASE } from "./home/motion";
 
 const navKeys = [
   { href: "/", key: "home" as const },
@@ -24,157 +24,163 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-[background,backdrop-filter,box-shadow] duration-300 ${
-        scrolled
-          ? "bg-bg-base backdrop-blur-xl shadow-[0_1px_0_var(--border-subtle)]"
-          : "bg-transparent shadow-none"
-      }`}
+      className="fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-[280ms]"
+      style={{
+        backgroundColor: scrolled ? "var(--nav-blur-bg)" : "transparent",
+        backdropFilter: scrolled ? "blur(14px)" : undefined,
+        WebkitBackdropFilter: scrolled ? "blur(14px)" : undefined,
+        boxShadow: scrolled ? "inset 0 -1px 0 var(--border-subtle)" : "none",
+      }}
     >
-      <div className="relative max-w-7xl mx-auto px-6 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
-        {/* Logo */}
-        <Link href="/" className="col-start-1 row-start-1 justify-self-start flex items-center gap-2.5 group">
+      <div className="relative mx-auto flex h-[60px] max-w-[86rem] items-center gap-6 px-[var(--qx-gutter)]">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <img
             src="/qookix-icon.png"
             alt="QookiX"
-            width={36}
-            height={36}
-            className="object-contain transition-transform group-hover:scale-105"
+            width={24}
+            height={24}
+            className="rounded-[5px]"
             style={{ imageRendering: "pixelated" }}
           />
-          <div className="flex flex-col leading-none">
-            <span className="font-bold text-text-primary text-[15px] tracking-wide">QookiX</span>
-            <span className="text-[10px] text-text-tertiary tracking-widest uppercase">Launcher</span>
-          </div>
+          <span className="flex flex-col leading-none">
+            <span className="text-[15px] font-bold tracking-tight text-[var(--text-primary)]">
+              QookiX
+            </span>
+            <span className="qx-mono mt-0.5 text-[9px] tracking-[0.18em] text-[var(--text-tertiary)]">
+              LAUNCHER
+            </span>
+          </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex col-start-2 row-start-1 justify-self-center items-center gap-1">
+        {/* 桌面导航：下划线用启动器内容页签同一套机制 */}
+        <nav className="hidden items-center gap-6 md:flex">
           {navKeys.map((item) => {
-            const isActive = !item.external && pathname === item.href;
+            const active = !item.external && pathname === item.href;
             const label = t.nav[item.key];
-            const cls = `relative px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              isActive
-                ? "text-accent"
-                : "text-text-secondary hover:text-text-primary"
+            const cls = `relative py-2 text-[14px] transition-colors duration-150 ${
+              active
+                ? "text-[var(--accent)]"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`;
+            const inner = (
+              <>
+                {label}
+                {active && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute inset-x-0 -bottom-px h-[2px] origin-left"
+                    style={{ background: "var(--accent)" }}
+                    transition={{ duration: DUR.standard, ease: EASE }}
+                  />
+                )}
+              </>
+            );
             return item.external ? (
               <a key={item.href} href={item.href} className={cls}>
-                {label}
+                {inner}
               </a>
             ) : (
               <Link key={item.href} href={item.href} className={cls}>
-                {label}
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-lg bg-accent-soft"
-                    transition={{ type: "spring", duration: 0.4, bounce: 0.2 }}
-                  />
-                )}
+                {inner}
               </Link>
             );
           })}
         </nav>
 
-        {/* Actions */}
-        <div className="hidden md:flex col-start-3 row-start-1 justify-self-end items-center gap-2">
+        <div className="ml-auto flex items-center gap-1.5">
           <LangToggle />
-          <ThemeToggle />
           <a
-            href="https://github.com/weimosheng/QookiX-Launcher"
+            href={GITHUB_REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors"
+            aria-label="GitHub"
+            className="hidden h-9 w-9 items-center justify-center rounded-[10px] text-[var(--text-tertiary)] transition-colors duration-150 hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)] sm:flex"
           >
-            <GithubIcon size={18} />
-            <span>{t.nav.github}</span>
+            <GithubIcon size={17} />
           </a>
           <Link
             href="/download"
-            className="btn-primary !py-2.5 !px-5 !text-sm"
+            className="qx-btn qx-btn-primary hidden !px-4 !py-2 !text-[13px] sm:inline-flex"
           >
-            <Download size={16} />
+            <Download size={14} />
             {t.nav.download}
           </Link>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={t.nav.menu}
+            aria-expanded={mobileOpen}
+            className="grid h-9 w-9 place-items-center rounded-[10px] text-[var(--text-secondary)] transition-colors duration-150 hover:bg-[var(--bg-card-hover)] md:hidden"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden col-start-3 row-start-1 justify-self-end p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors"
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden border-t border-border-subtle bg-bg-base/95 backdrop-blur-xl overflow-hidden"
+            transition={{ duration: DUR.standard, ease: EASE }}
+            className="overflow-hidden border-b border-[var(--border-subtle)] bg-[var(--bg-base)] md:hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-2">
+            <nav className="flex flex-col gap-1 px-[var(--qx-gutter)] py-4">
               {navKeys.map((item) => {
-                const isActive = !item.external && pathname === item.href;
-                const label = t.nav[item.key];
-                const cls = `px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? "text-accent bg-accent-soft"
-                    : "text-text-secondary hover:text-text-primary hover:bg-bg-card"
+                const active = !item.external && pathname === item.href;
+                const cls = `rounded-[10px] px-3 py-2.5 text-left text-[15px] transition-colors duration-150 ${
+                  active
+                    ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+                    : "text-[var(--text-secondary)] hover:bg-[var(--bg-card)]"
                 }`;
                 return item.external ? (
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={() => setMobileOpen(false)}
                     className={cls}
+                    onClick={() => setMobileOpen(false)}
                   >
-                    {label}
+                    {t.nav[item.key]}
                   </a>
                 ) : (
                   <Link
                     key={item.href}
                     href={item.href}
-                    onClick={() => setMobileOpen(false)}
                     className={cls}
+                    onClick={() => setMobileOpen(false)}
                   >
-                    {label}
+                    {t.nav[item.key]}
                   </Link>
                 );
               })}
-              <div className="flex items-center gap-2 px-4 py-3">
-                <LangToggle />
-                <ThemeToggle />
+              <div className="mt-2 flex items-center gap-2">
+                <a
+                  href={GITHUB_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="qx-btn qx-btn-ghost flex-1 !text-[13px]"
+                >
+                  <GithubIcon size={15} />
+                  GitHub
+                </a>
+                <Link
+                  href="/download"
+                  onClick={() => setMobileOpen(false)}
+                  className="qx-btn qx-btn-primary flex-1 !text-[13px]"
+                >
+                  <Download size={14} />
+                  {t.nav.downloadNow}
+                </Link>
               </div>
-              <a
-                href="https://github.com/weimosheng/QookiX-Launcher"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-3 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors"
-              >
-                <GithubIcon size={18} />
-                {t.nav.github}
-              </a>
-              <Link
-                href="/download"
-                onClick={() => setMobileOpen(false)}
-                className="btn-primary w-full mt-2"
-              >
-                <Download size={16} />
-                {t.nav.downloadNow}
-              </Link>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,0 +1,14 @@
+▲ Next.js 16.3.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.114:3000
+✓ Ready in 352ms
+✓ Running next.config.ts took 31ms
+
+⚠ Slow filesystem detected. The benchmark took 217ms. If \\?\I:\program\vibe\mc\QookiX-Web\QookiX-Docs\.next\dev is a network drive, consider moving it to a local folder.
+See more: https://nextjs.org/docs/app/guides/local-development
+ GET / 200 in 486ms (next.js: 304ms, application-code: 181ms)
+ GET / 200 in 81ms (next.js: 8ms, application-code: 73ms)
+ GET /manifest.webmanifest 200 in 83ms (next.js: 67ms, application-code: 16ms)
+ GET / 200 in 74ms (next.js: 4ms, application-code: 70ms)
+ GET / 200 in 72ms (next.js: 3ms, application-code: 69ms)
+ GET / 200 in 74ms (next.js: 4ms, application-code: 70ms)

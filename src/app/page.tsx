@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import Screenshots from "@/components/Screenshots";
-import Showcase from "@/components/Showcase";
-import Stats from "@/components/Stats";
-import CtaSection from "@/components/CtaSection";
+import Hero from "@/components/home/Hero";
+import SpecLedger from "@/components/home/SpecLedger";
+import { ContentHub, SkinCenter } from "@/components/home/DeepDive";
+import CapabilityIndex from "@/components/home/CapabilityIndex";
+import ActivityLedger from "@/components/home/ActivityLedger";
+import ClosingCta from "@/components/home/ClosingCta";
 import { MAIN_SITE_URL, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "@/lib/site";
 
 /** 页面级实体：为首页声明 WebPage（含主图），站点级实体在根 layout 声明。 */
@@ -52,17 +52,18 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="qx-page flex flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }}
       />
       <Hero />
-      <Features />
-      <Screenshots />
-      <Showcase />
-      <Stats />
-      <CtaSection />
+      <SpecLedger />
+      <ContentHub />
+      <SkinCenter />
+      <CapabilityIndex />
+      <ActivityLedger />
+      <ClosingCta />
     </div>
   );
 }

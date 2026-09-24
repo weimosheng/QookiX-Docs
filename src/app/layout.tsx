@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { I18nProvider } from "@/components/I18nProvider";
 import {
   GITHUB_RELEASES_URL,
@@ -84,8 +83,8 @@ const structuredData = {
         "模组、整合包、光影、资源包一键安装与升级",
         "多实例管理",
         "无广告、无遥测",
-        "跨平台（Windows / macOS / Linux）",
-        "集成陶瓦联机",
+        "跨平台（Windows / Linux / macOS / Android）",
+        "集成陶瓦联机（Android暂不支持）",
       ],
     },
   ],
@@ -163,10 +162,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0c" },
-    { media: "(prefers-color-scheme: light)", color: "#faf8f5" },
-  ],
+  // 与启动器外壳同色，浏览器标题栏与滚动条据此跟随深色
+  themeColor: "#0b0d12",
 };
 
 export default function RootLayout({
@@ -177,6 +174,7 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-bg-base`}
       suppressHydrationWarning
     >
@@ -185,18 +183,16 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <ThemeProvider>
-          <I18nProvider>
-            {/* 固定导航 */}
-            <Navbar />
+        <I18nProvider>
+          {/* 固定导航 */}
+          <Navbar />
 
-            {/* 主内容区 */}
-            <main className="flex-1 relative z-10">{children}</main>
+          {/* 主内容区 */}
+          <main className="flex-1 relative z-10">{children}</main>
 
-            {/* 页脚 */}
-            <Footer />
-          </I18nProvider>
-        </ThemeProvider>
+          {/* 页脚 */}
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );

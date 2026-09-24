@@ -1,21 +1,26 @@
 @import "tailwindcss";
+@import "./launcher-window.css";
+@import "./launcher-mobile.css";
 
-/* ========== 深色主题（默认） ========== */
+/* ========== 深色主题（全站唯一主题，取值与启动器本体对齐） ========== */
 :root {
+  /* 让浏览器原生部分（滚动条、表单控件、标题栏）也按深色绘制 */
+  color-scheme: dark;
+
   --accent: #e89a4b;
   --accent-light: #f0b06e;
   --accent-deep: #c97e35;
   --accent-soft: rgba(232, 154, 75, 0.15);
   --accent-glow: rgba(232, 154, 75, 0.35);
 
-  --bg-base: #0a0a0c;
-  --bg-elevated: #121216;
-  --bg-card: rgba(255, 255, 255, 0.035);
-  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --bg-base: #0b0d12;
+  --bg-elevated: #10131a;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
 
   --text-primary: #f2f3f7;
-  --text-secondary: #b4b6c0;
-  --text-tertiary: #7a7d8a;
+  --text-secondary: #c6c8d2;
+  --text-tertiary: #8b8e9c;
 
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-accent: rgba(232, 154, 75, 0.35);
@@ -24,36 +29,8 @@
   --glow-bg-deep: rgba(201, 126, 53, 0.4);
   --accent-sweep: rgba(232, 154, 75, 0.12);
   --stripe-rgba: 232, 154, 75;
-  --stripe-edge-fade: rgba(10, 10, 12, 0.55);
-  --nav-blur-bg: rgba(10, 10, 12, 0.8);
-}
-
-/* ========== 浅色主题 ========== */
-html[data-theme="light"] {
-  --accent: #d48a3a;
-  --accent-light: #e8a24f;
-  --accent-deep: #b8722c;
-  --accent-soft: rgba(212, 138, 58, 0.12);
-  --accent-glow: rgba(212, 138, 58, 0.28);
-
-  --bg-base: #faf8f5;
-  --bg-elevated: #f2efe9;
-  --bg-card: rgba(212, 138, 58, 0.04);
-  --bg-card-hover: rgba(212, 138, 58, 0.08);
-
-  --text-primary: #1a1816;
-  --text-secondary: #5c5a57;
-  --text-tertiary: #9a9792;
-
-  --border-subtle: rgba(26, 24, 22, 0.1);
-  --border-accent: rgba(212, 138, 58, 0.4);
-
-  --glow-bg-accent: rgba(212, 138, 58, 0.4);
-  --glow-bg-deep: rgba(184, 114, 44, 0.25);
-  --accent-sweep: rgba(212, 138, 58, 0.14);
-  --stripe-rgba: 212, 138, 58;
-  --stripe-edge-fade: rgba(250, 248, 245, 0.6);
-  --nav-blur-bg: rgba(250, 248, 245, 0.85);
+  --stripe-edge-fade: rgba(11, 13, 18, 0.55);
+  --nav-blur-bg: rgba(11, 13, 18, 0.8);
 }
 
 @theme inline {
@@ -80,7 +57,9 @@ html[data-theme="light"] {
 html {
   scroll-behavior: smooth;
   background: var(--bg-base);
-  overflow-x: hidden;
+  /* clip 而非 hidden：hidden 会让后代 sticky 失效 */
+  overflow-x: clip;
+  scroll-padding-top: 88px;
 }
 
 body {
@@ -112,19 +91,6 @@ body {
 }
 
 /* ========== 通用样式 ========== */
-.bg-grid-pattern {
-  background-image:
-    linear-gradient(var(--accent-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--accent-soft) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-.glow-accent {
-  box-shadow: 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
-}
-
-.text-glow { text-shadow: 0 0 30px var(--accent-glow); }
-
 .gradient-text {
   background: linear-gradient(135deg, var(--accent-light), var(--accent), var(--accent-deep));
   -webkit-background-clip: text;
@@ -177,49 +143,6 @@ body {
 }
 .btn-primary:hover::after { transform: translateX(100%); }
 
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 28px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 15px;
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.btn-secondary:hover {
-  border-color: var(--border-accent);
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
-}
-.animate-float { animation: float-slow 6s ease-in-out infinite; }
-
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-.shimmer-line {
-  background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 4s linear infinite;
-}
-
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
-
 .glow-orb {
   position: absolute;
   border-radius: 50%;
@@ -228,35 +151,295 @@ body {
   pointer-events: none;
 }
 
-/* ========== 主题切换圆形遮罩动画 ========== */
-.theme-reveal {
-  position: fixed;
-  border-radius: 9999px;
-  background: var(--bg-base);
+/* ==========================================================================
+   QookiX 首页设计层（qx-*）
+   取值与启动器本体对齐：src/styles.css 的 --bg-0/1/2 与 --accent 阶，
+   theme.ts 的圆角，SideBar.vue 的签名缓动。深色专属，浅色后续单独设计。
+   ========================================================================== */
+:root {
+  /* 表面 */
+  --qx-bg-0: #0b0d12;
+  --qx-bg-1: #10131a;
+  --qx-bg-2: #151924;
+  --qx-panel: rgba(255, 255, 255, 0.04);
+  --qx-panel-hi: rgba(255, 255, 255, 0.07);
+  --qx-line: rgba(255, 255, 255, 0.08);
+  --qx-line-hi: rgba(255, 255, 255, 0.14);
+  /* 客户端设了背景图之后用的那套玻璃面板（styles.css 的 .has-bg） */
+  --qx-glass: rgba(22, 25, 34, 0.62);
+  --qx-glass-hi: rgba(30, 34, 44, 0.74);
+  --qx-glass-line: rgba(255, 255, 255, 0.14);
+
+  /* 琥珀主色阶 */
+  --qx-amber: #e89a4b;
+  --qx-amber-hi: #f2a860;
+  --qx-amber-lo: #d97f33;
+  --qx-a-04: rgba(232, 154, 75, 0.04);
+  --qx-a-08: rgba(232, 154, 75, 0.08);
+  --qx-a-12: rgba(232, 154, 75, 0.12);
+  --qx-a-14: rgba(232, 154, 75, 0.14);
+  --qx-a-16: rgba(232, 154, 75, 0.16);
+  --qx-a-22: rgba(232, 154, 75, 0.22);
+  --qx-a-25: rgba(232, 154, 75, 0.25);
+  --qx-a-35: rgba(232, 154, 75, 0.35);
+  --qx-a-45: rgba(232, 154, 75, 0.45);
+  /* 主按钮上的文字：启动器用的是深棕而非白 */
+  --qx-ink: #1a1208;
+
+  /* 文字 */
+  --qx-t1: #f2f3f7;
+  --qx-t2: #c6c8d2;
+  --qx-t3: #8b8e9c;
+
+  /* 语义色（与 InstanceCard 标签一致） */
+  --qx-green: #7ad08a;
+  --qx-blue: #5ab0ff;
+
+  /* 缓动与时长 */
+  --qx-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --qx-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --qx-ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
+  --qx-d-fast: 160ms;
+  --qx-d-mid: 280ms;
+  --qx-d-slow: 420ms;
+  --qx-d-reveal: 720ms;
+
+  /* 排印刻度：显示/正文比约 6.5× */
+  --qx-display: clamp(2.1rem, 1.25rem + 3.4vw, 4.25rem);
+  --qx-h2: clamp(1.75rem, 1.2rem + 2.4vw, 3.25rem);
+  --qx-h3: clamp(1.2rem, 1.05rem + 0.7vw, 1.6rem);
+  --qx-lead: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+
+  /* 节奏 */
+  --qx-sec: clamp(5.5rem, 3rem + 9vw, 12rem);
+  --qx-gutter: clamp(1.25rem, 5vw, 6rem);
+  --qx-measure: 46ch;
+}
+
+@theme inline {
+  --color-qx-bg0: var(--qx-bg-0);
+  --color-qx-bg1: var(--qx-bg-1);
+  --color-qx-bg2: var(--qx-bg-2);
+  --color-qx-panel: var(--qx-panel);
+  --color-qx-line: var(--qx-line);
+  --color-qx-amber: var(--qx-amber);
+  --color-qx-amber-hi: var(--qx-amber-hi);
+  --color-qx-ink: var(--qx-ink);
+  --color-qx-t1: var(--qx-t1);
+  --color-qx-t2: var(--qx-t2);
+  --color-qx-t3: var(--qx-t3);
+  --color-qx-green: var(--qx-green);
+  --color-qx-blue: var(--qx-blue);
+}
+
+.qx-page {
+  background: var(--qx-bg-0);
+  color: var(--qx-t1);
+}
+
+.qx-section {
+  position: relative;
+  padding-block: var(--qx-sec);
+}
+
+.qx-gutter {
+  padding-inline: var(--qx-gutter);
+}
+
+.qx-shell {
+  max-width: 88rem;
+  margin-inline: auto;
+}
+
+.qx-display {
+  font-size: var(--qx-display);
+  /* 中文黑体在大字号下需要比西文更松的行高 */
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.qx-h2 {
+  font-size: var(--qx-h2);
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.qx-h3 {
+  font-size: var(--qx-h3);
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.qx-lead {
+  font-size: var(--qx-lead);
+  line-height: 1.85;
+  color: var(--qx-t2);
+  max-width: var(--qx-measure);
+}
+
+/* 等宽账本标签：整页的「技术感」来源 */
+.qx-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--qx-t3);
+}
+
+.qx-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.qx-rule {
+  height: 1px;
+  background: var(--qx-line);
+  border: 0;
+}
+
+/* ---------- 按钮 ---------- */
+.qx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1;
+  padding: 0.875rem 1.5rem;
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  transition:
+    transform var(--qx-d-fast) var(--qx-ease),
+    filter var(--qx-d-fast) var(--qx-ease),
+    background-color var(--qx-d-fast) var(--qx-ease),
+    border-color var(--qx-d-fast) var(--qx-ease),
+    color var(--qx-d-fast) var(--qx-ease);
+}
+/* 启动器本体的按压反馈就是 scale(0.96) */
+.qx-btn:active { transform: scale(0.96); transition-duration: 100ms; }
+.qx-btn:focus-visible {
+  outline: 2px solid var(--qx-amber);
+  outline-offset: 2px;
+}
+
+.qx-btn-primary {
+  background: linear-gradient(135deg, var(--qx-amber), var(--qx-amber-lo));
+  color: var(--qx-ink);
+  border: 1px solid transparent;
+  box-shadow: 0 6px 22px rgba(232, 154, 75, 0.28);
+}
+.qx-btn-primary:hover { filter: brightness(1.08); }
+
+.qx-btn-ghost {
+  background: transparent;
+  color: var(--qx-t2);
+  border: 1px solid var(--qx-line);
+}
+.qx-btn-ghost:hover {
+  color: var(--qx-t1);
+  background: var(--qx-panel-hi);
+  border-color: var(--qx-line-hi);
+}
+
+/* ---------- 面板 ---------- */
+.qx-panel {
+  background: var(--qx-panel);
+  border: 1px solid var(--qx-line);
+  border-radius: 14px;
+}
+
+/* 链接的克制下划线：细、贴字、只在 hover 时点亮 */
+.qx-link {
+  color: var(--qx-t2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--qx-line);
+  padding-bottom: 1px;
+  transition:
+    color var(--qx-d-fast) var(--qx-ease),
+    border-color var(--qx-d-fast) var(--qx-ease);
+}
+.qx-link:hover { color: var(--qx-amber); border-color: var(--qx-amber); }
+.qx-link:focus-visible { outline: 2px solid var(--qx-amber); outline-offset: 3px; }
+
+/* ---------- 内容中心截图：中英对照的拖动竖线 ---------- */
+/* 底层英文原文铺满，上层中文译文按竖线位置裁出右半边，拖动竖线即可左右对照 */
+.qx-tr {
+  position: relative;
+  display: block;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.qx-tr:focus-visible {
+  outline: 2px solid var(--qx-amber);
+  outline-offset: 3px;
+}
+.qx-tr-base {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.qx-tr-cn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 竖线本身：中间亮、两端淡出 */
+.qx-tr-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 168, 96, 0),
+    var(--qx-amber-hi) 10%,
+    var(--qx-amber) 90%,
+    rgba(242, 168, 96, 0)
+  );
+  box-shadow: 0 0 20px var(--qx-a-45);
   pointer-events: none;
-  z-index: 9999;
-  transform: scale(0);
-  animation: theme-expand 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+/* 竖线上的抓手 */
+.qx-tr-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  color: var(--qx-ink);
+  background: linear-gradient(135deg, var(--qx-amber-hi), var(--qx-amber-lo));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 6px var(--qx-a-12);
+  transition: transform var(--qx-d-fast) var(--qx-ease);
+}
+.qx-tr:hover .qx-tr-knob { transform: translate(-50%, -50%) scale(1.06); }
+
+/* ---------- 无障碍：动效关闭时一切保持可用 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .qx-page *,
+  .qx-page *::before,
+  .qx-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-@keyframes theme-expand {
-  from { transform: scale(0); opacity: 1; }
-  to { transform: scale(1); opacity: 0; }
-}
-
-/* 主题切换期间隐藏滚动条 —— Windows Chrome 滚动条不支持 CSS transition，
-   所以直接"藏"起来，切换完以新主题色重新出现 */
-html.theme-switching {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge Legacy */
-}
-html.theme-switching::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
-  display: none !important;
-}
-
-/* 浅色主题下 card hover 阴影调整 */
-html[data-theme="light"] .card-gold:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), 0 0 20px var(--accent-glow);
-}

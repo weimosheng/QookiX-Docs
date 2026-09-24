@@ -43,7 +43,7 @@ export async function createOgImage(): Promise<ImageResponse> {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          backgroundColor: "#0a0a0c",
+          backgroundColor: "#0b0d12",
           backgroundImage:
             "radial-gradient(1000px 620px at 8% -10%, rgba(232,154,75,0.30) 0%, rgba(10,10,12,0) 62%)",
           color: "#f2f3f7",

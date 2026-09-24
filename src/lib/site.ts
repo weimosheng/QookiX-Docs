@@ -20,6 +20,11 @@ export const GITHUB_REPO_URL =
   "https://github.com/weimosheng/QookiX-Launcher";
 export const GITHUB_RELEASES_URL = `${GITHUB_REPO_URL}/releases`;
 
+/** Android 版仓库地址（独立仓库，发布 APK）。 */
+export const GITHUB_ANDROID_REPO_URL =
+  "https://github.com/ZhaYi-Miao/QookiX-Launcher-Android";
+export const GITHUB_ANDROID_RELEASES_URL = `${GITHUB_ANDROID_REPO_URL}/releases`;
+
 /** SEO 主标题与描述，全站共用一份以保证一致性。 */
 export const SITE_TITLE = "QookiX Launcher - 免费纯净的 Minecraft 启动器";
 export const SITE_DESCRIPTION =

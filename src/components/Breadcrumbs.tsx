@@ -17,21 +17,18 @@ export interface BreadcrumbItem {
  */
 export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav aria-label="breadcrumb" className="mb-6">
-      <ol className="flex items-center justify-center gap-1.5 text-xs text-text-tertiary">
+    <nav aria-label="breadcrumb" className="mb-8">
+      <ol className="qx-label flex items-center gap-2">
         {items.map((item, i) => {
           const isLast = i === items.length - 1;
           return (
-            <li key={i} className="flex items-center gap-1.5">
+            <li key={i} className="flex items-center gap-2">
               {item.href && !isLast ? (
-                <Link
-                  href={item.href}
-                  className="hover:text-accent transition-colors"
-                >
+                <Link href={item.href} className="transition-colors hover:text-[var(--qx-amber)]">
                   {item.label}
                 </Link>
               ) : (
-                <span aria-current="page" className="text-text-secondary">
+                <span aria-current="page" className="text-[var(--qx-t2)]">
                   {item.label}
                 </span>
               )}
