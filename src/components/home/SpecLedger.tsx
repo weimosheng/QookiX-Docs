@@ -44,7 +44,6 @@ export default function SpecLedger() {
     >
       <div className="mx-auto grid w-full max-w-[1400px] gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,0.34fr)_minmax(0,0.66fr)]">
         <div>
-          <p className="qx-label">{L.eyebrow}</p>
           <h2 className="qx-h2 mt-4 max-w-[14ch]">{L.title}</h2>
         </div>
 
