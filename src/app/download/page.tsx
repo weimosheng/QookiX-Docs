@@ -407,7 +407,7 @@ export default function DownloadPage() {
                 <div
                   role="tablist"
                   aria-label={t.nav.download}
-                  className="relative inline-flex gap-1 overflow-x-auto rounded-xl border border-[var(--qx-line)] bg-[var(--qx-panel)] p-1.5"
+                  className="relative inline-flex max-w-full gap-1 overflow-x-auto rounded-xl border border-[var(--qx-line)] bg-[var(--qx-panel)] p-1.5"
                 >
                   {pill && (
                     <span
