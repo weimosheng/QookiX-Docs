@@ -79,7 +79,7 @@ export default function MobileLauncherWindow({ version }: { version: string | nu
     const obs = new ResizeObserver((entries) => {
       for (const e of entries) {
         const w = e.contentRect.width;
-        const s = Math.min(1, Math.max(0.5, (w - 24) / MW));
+        const s = Math.min(1, (w - 24) / MW);
         setScale(s);
       }
     });
@@ -124,14 +124,24 @@ export default function MobileLauncherWindow({ version }: { version: string | nu
     <div ref={wrapRef} className="w-full overflow-hidden">
       <div
         style={{
-          width: MW,
-          height: MH,
-          transform: `scale(${scale})`,
-          transformOrigin: "top center",
+          width: MW * scale,
+          height: MH * scale,
           margin: "0 auto",
+          position: "relative",
         }}
       >
-        <div className="qx-mo-phone">
+        <div
+          style={{
+            width: MW,
+            height: MH,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+        >
+          <div className="qx-mo-phone">
           {/* 状态栏 */}
           <div className="qx-mo-statusbar">
             <span>9:41</span>
@@ -796,6 +806,7 @@ export default function MobileLauncherWindow({ version }: { version: string | nu
               );
             })}
           </nav>
+        </div>
         </div>
       </div>
     </div>
