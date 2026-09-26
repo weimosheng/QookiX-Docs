@@ -88,15 +88,6 @@ export default function Hero() {
 
       {/* 标题区：居中排印 */}
       <div className="relative z-10 mx-auto flex max-w-[80rem] flex-col items-center px-[var(--qx-gutter)] text-center">
-        <motion.p
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: DUR.medium, ease: EASE_EXPO }}
-          className="qx-label"
-        >
-          {hero.kicker}
-        </motion.p>
-
         <h1 className="qx-display mt-5 max-w-[16ch]">
           {hero.lines.map((line, i) => (
             <motion.span

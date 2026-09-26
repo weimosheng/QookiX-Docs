@@ -89,9 +89,6 @@ export function ContentHub() {
           <p className="qx-label">{hub.eyebrow}</p>
           <h2 className="qx-h2 mt-4 max-w-[16ch]">{hub.title}</h2>
           <p className="qx-lead mt-6">{hub.desc}</p>
-          <p className="qx-mono mt-8 text-[12px] leading-relaxed text-[var(--qx-t3)]">
-            {hub.translateHint}
-          </p>
         </div>
 
         {/* 中英对照：竖线左侧原文、右侧译文，往左拖露出译文，往右拖回到原文 */}
@@ -161,13 +158,6 @@ export function SkinCenter() {
   const sy = useSpring(ny, { stiffness: 140, damping: 20 });
   const rotateY = useTransform(sx, (v) => v * 6);
   const rotateX = useTransform(sy, (v) => -v * 5);
-  const lightX = useTransform(sx, (v) => 50 + v * 34);
-  const lightY = useTransform(sy, (v) => 50 + v * 30);
-  const sheen = useTransform(
-    [lightX, lightY],
-    ([x, y]: number[]) =>
-      `radial-gradient(38% 38% at ${x}% ${y}%, rgba(255,255,255,0.14), transparent 72%)`
-  );
 
   const onMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
@@ -199,13 +189,7 @@ export function SkinCenter() {
           style={{ perspective: 1200 }}
         >
           <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}>
-            <Frame src="/screenshot-skin.png" alt={skin.imageAlt}>
-              <motion.span
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{ background: sheen, mixBlendMode: "screen" }}
-              />
-            </Frame>
+            <Frame src="/screenshot-skin.png" alt={skin.imageAlt} />
           </motion.div>
         </div>
 
@@ -216,7 +200,7 @@ export function SkinCenter() {
           <ul className="mt-8">
             {skin.points.map((point, i) => (
               <motion.li
-                key={point}
+                key={point.n}
                 initial={reduce ? false : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
@@ -224,9 +208,9 @@ export function SkinCenter() {
                 className="flex items-baseline gap-4 border-t border-[var(--qx-line)] py-3.5"
               >
                 <span className="qx-mono text-[11px] text-[var(--qx-amber)]">
-                  {String(i + 1).padStart(2, "0")}
+                  {point.n}
                 </span>
-                <span className="text-[14px] text-[var(--qx-t2)]">{point}</span>
+                <span className="text-[14px] text-[var(--qx-t2)]">{point.text}</span>
               </motion.li>
             ))}
           </ul>

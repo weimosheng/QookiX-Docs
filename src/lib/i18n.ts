@@ -21,8 +21,8 @@ const zh = {
     hero: {
       kicker: "Minecraft Java 版 · 开源启动器",
       lines: ["Qookix Launcher", "Minecraft 启动器"],
-      accentLine: 1,
-      lead: "QookiX Launcher 是一款开源、免费的 Minecraft Java 版启动器",
+      accentLine: 0,
+      lead: "QookiX Launcher 是一款开源的跨平台 Minecraft Java 版启动器",
       secondary: "看看最近更新了什么",
       deviceSwitch: "演示设备",
       demoNote: "演示仅供参考，请以实际 UI 为准",
@@ -440,7 +440,12 @@ const zh = {
       eyebrow: "皮肤中心",
       title: "查看一些皮肤",
       desc: "3D 预览支持拖动旋转，也可以切换披风、行走动作、经典与纤细模型",
-      points: ["拖动即可旋转预览", "支持披风与经典 / 纤细模型", "按玩家名直接获取"],
+      points: [
+        { n: "01", text: "支持 3D 预览皮肤" },
+        { n: "02", text: "支持披风与经典 / 纤细模型" },
+        { n: "03", text: "按玩家名直接获取" },
+        { n: "04", text: "多皮肤管理" },
+      ],
       imageAlt: "QookiX Launcher 皮肤中心",
     },
     index: {
@@ -483,7 +488,7 @@ const zh = {
       by: "提交者",
     },
     cta: {
-      title: "装一个试试嘛喵🐱",
+      title: "装一个试试嘛喵",
       desc: "默认设置下，程序在启动时会自动检查更新，如有更新会自动下载",
       button: "下载 {version}",
       fallback: "前往下载页",
@@ -551,8 +556,8 @@ const en: typeof zh = {
     hero: {
       kicker: "Minecraft Java Edition · Open Source",
       lines: ["Qookix Launcher", "Minecraft launcher"],
-      accentLine: 1,
-      lead: "QookiX Launcher is a free, open-source Minecraft Java Edition launcher.",
+      accentLine: 0,
+      lead: "QookiX Launcher is an open-source, cross-platform Minecraft Java Edition launcher.",
       secondary: "See what changed recently",
       deviceSwitch: "Demo device",
       demoNote: "For demonstration only — refer to the actual UI.",
@@ -971,9 +976,10 @@ const en: typeof zh = {
       title: "Take a look at some skins",
       desc: "The 3D preview rotates with a drag, and you can also switch the cape, walking animation, and classic / slim models.",
       points: [
-        "Drag to rotate the preview",
-        "Cape and classic / slim models",
-        "Fetch a skin by player name",
+        { n: "01", text: "3D skin preview" },
+        { n: "02", text: "Cape and classic / slim models" },
+        { n: "03", text: "Fetch a skin by player name" },
+        { n: "04", text: "Multi-skin management" },
       ],
       imageAlt: "QookiX Launcher skin center",
     },
@@ -1017,7 +1023,7 @@ const en: typeof zh = {
       by: "Author",
     },
     cta: {
-      title: "Give it a try, meow 🐱",
+      title: "Give it a try, meow",
       desc: "By default, the app checks for updates on launch and downloads them automatically.",
       button: "Download {version}",
       fallback: "Go to download page",
